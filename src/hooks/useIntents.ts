@@ -12,7 +12,7 @@ export const useIntents = () => {
   });
 
   return {
-    data: data?.intents,
+    intents: data?.intents,
     loading,
     ...result,
   };
