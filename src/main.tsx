@@ -1,13 +1,19 @@
+import { ApolloProvider } from '@apollo/client';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createApolloClient } from './utils/apolloClient';
+
+const apolloClient = createApolloClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <ApolloProvider client={apolloClient}>
+      <Router>
+        <App />
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
