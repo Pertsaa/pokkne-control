@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import Header from '../../components/header';
 
 const Chatbots: FC = () => {
-  return <div>chatbots page</div>;
+  return <Header />;
 };
 
 export default Chatbots;

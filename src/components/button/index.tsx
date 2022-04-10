@@ -15,9 +15,10 @@ export const StyledButton = styled.button<Props>`
   color: white;
   padding: 0.5em 1em;
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
-    background-color: #555;
+    background: #555;
   }
 
   &:focus {

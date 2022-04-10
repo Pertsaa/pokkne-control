@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import Header from '../../components/header';
 
 const Fallback: FC = () => {
-  return <div>fallback page</div>;
+  return <Header />;
 };
 
 export default Fallback;
