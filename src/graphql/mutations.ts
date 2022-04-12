@@ -2,17 +2,18 @@ import { gql } from '@apollo/client';
 import { CHATBOT_FIELDS, INTENT_FIELDS } from './fragments';
 
 export const ADD_INTENT = gql`
-  mutation AddIntent($intent: IntentInput!) {
-    addIntent(intent: $intent) {
-      id
-      name
+  ${INTENT_FIELDS}
+
+  mutation AddIntent($newIntent: IntentInput!) {
+    addIntent(intent: $newIntent) {
+      ...IntentFields
     }
   }
 `;
 
 export const REMOVE_INTENT = gql`
-  mutation RemoveIntent($removeIntentId: ID!) {
-    removeIntent(id: $removeIntentId)
+  mutation RemoveIntent($id: ID!) {
+    removeIntent(id: $id)
   }
 `;
 
@@ -20,8 +21,8 @@ export const ADD_CHATBOT = gql`
   ${CHATBOT_FIELDS}
   ${INTENT_FIELDS}
 
-  mutation AddChatbot($chatbot: ChatbotInput!) {
-    addChatbot(chatbot: $chatbot) {
+  mutation AddChatbot($newChatbot: ChatbotInput!) {
+    addChatbot(chatbot: $newChatbot) {
       ...ChatbotFields
       intents {
         ...IntentFields
@@ -31,7 +32,7 @@ export const ADD_CHATBOT = gql`
 `;
 
 export const REMOVE_CHATBOT = gql`
-  mutation RemoveChatbot($removeChatbotId: ID!) {
-    removeChatbot(id: $removeChatbotId)
+  mutation RemoveChatbot($id: ID!) {
+    removeChatbot(id: $id)
   }
 `;

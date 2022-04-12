@@ -13,9 +13,6 @@ const Header: FC = () => {
           <NavItem>
             <Button to="/intents">Intents</Button>
           </NavItem>
-          <NavItem>
-            <Button to="/fallback">Fallback</Button>
-          </NavItem>
         </NavList>
       </nav>
       <Button>Sign out</Button>

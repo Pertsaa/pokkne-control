@@ -1,14 +1,14 @@
 import { FC, useState } from 'react';
-import { useRemoveIntent } from '../../hooks/useRemoveIntent';
-import { useIntents } from '../../hooks/useIntents';
+import { useRemoveIntent } from '../../hooks/intents/useRemoveIntent';
+import { useIntents } from '../../hooks/intents/useIntents';
 import { Button } from '../button';
 import Modal from '../modal';
 import IntentForm from '../forms/intentForm';
 import Table from '../table';
-import { useAddIntent } from '../../hooks/useAddIntent';
+import { useAddIntent } from '../../hooks/intents/useAddIntent';
 
 const IntentList: FC = () => {
-  const { intents, loading, error } = useIntents();
+  const { intents } = useIntents();
   const [showModal, setShowModal] = useState(false);
   const { removeIntent } = useRemoveIntent();
   const { addIntent } = useAddIntent();
@@ -18,7 +18,7 @@ const IntentList: FC = () => {
     setShowModal(false);
   };
 
-  if (loading || error) return null;
+  if (!intents) return null;
 
   return (
     <>
@@ -37,7 +37,7 @@ const IntentList: FC = () => {
               { label: 'Examples', values: intent.examples },
               { label: 'Responses', values: intent.responses },
             ]}
-            onDelete={() => removeIntent(intent.id)}
+            onDelete={() => removeIntent({ id: intent.id })}
           />
         ))}
     </>

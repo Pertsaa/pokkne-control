@@ -15,3 +15,13 @@ export interface Chatbot {
 }
 
 export type NewChatbot = Omit<Chatbot, 'id' | 'intents'>;
+
+// Query Types
+
+export interface ChatbotsQueryResult {
+  chatbots: Chatbot[];
+}
+
+export interface IntentsQueryResult {
+  intents: Intent[];
+}

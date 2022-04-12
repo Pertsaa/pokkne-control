@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
-import { useAddChatbot } from '../../hooks/useAddChatbot';
-import { useChatbots } from '../../hooks/useChatbots';
-import { useRemoveChatbot } from '../../hooks/useRemoveChatbot';
+import { useAddChatbot } from '../../hooks/chatbots/useAddChatbot';
+import { useChatbots } from '../../hooks/chatbots/useChatbots';
+import { useRemoveChatbot } from '../../hooks/chatbots/useRemoveChatbot';
 import { Button } from '../button';
 import ChatbotForm from '../forms/chatbotForm';
 import Modal from '../modal';
@@ -9,7 +9,7 @@ import Table from '../table';
 
 const ChatbotList: FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const { chatbots, loading, error } = useChatbots();
+  const { chatbots } = useChatbots();
   const { addChatbot } = useAddChatbot();
   const { removeChatbot } = useRemoveChatbot();
 
@@ -18,7 +18,7 @@ const ChatbotList: FC = () => {
     setShowModal(false);
   };
 
-  if (loading || error) return null;
+  if (!chatbots) return null;
 
   return (
     <>
@@ -41,7 +41,7 @@ const ChatbotList: FC = () => {
                 onEdit: () => {},
               },
             ]}
-            onDelete={() => removeChatbot(chatbot.id)}
+            onDelete={() => removeChatbot({ id: chatbot.id })}
           />
         ))}
     </>
