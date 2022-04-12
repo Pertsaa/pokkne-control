@@ -1,44 +1,63 @@
 import styled from 'styled-components';
 
-export const TableWrapper = styled.div`
+export const GridWrapper = styled.div`
   color: white;
-  margin-top: 2em;
-`;
-
-export const TableHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5em 1em;
-  border-radius: 6px 6px 0 0;
-  border: 1px solid #555;
-  border-bottom: none;
-`;
-
-export const StyledTable = styled.table`
-  border-collapse: collapse;
-  table-layout: fixed;
-  width: 100%;
-`;
-
-export const TH = styled.th`
-  padding: 1em 1em;
-  text-align: left;
-  border: 1px solid #555;
-`;
-
-export const TableBody = styled.tbody`
   border: 1px solid #555;
   border-radius: 6px;
+  margin: 2em 0;
 `;
 
-export const TR = styled.tr`
-  &:last-of-type {
-    border-radius: 0 0 6px 6px;
+export const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const GridHeader = styled.div`
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #252525;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid #555;
+`;
+
+export const GridCol = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  &:not(:first-child) {
+    border-left: 1px solid #555;
   }
 `;
 
-export const TD = styled.td`
-  padding: 0.5em 0;
-  text-align: center;
-  border: 1px solid #555;
+export const GridLabel = styled.div`
+  padding: 1em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  :not(:only-child) {
+    border-bottom: 1px solid #555;
+  }
+`;
+
+export const Cell = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #555;
+  }
+`;
+
+export const GridButton = styled.a`
+  font-weight: normal;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;

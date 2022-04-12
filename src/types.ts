@@ -5,6 +5,8 @@ export interface Intent {
   responses: string[];
 }
 
+export type NewIntent = Omit<Intent, 'id'>;
+
 export interface Chatbot {
   id: number;
   title: string;

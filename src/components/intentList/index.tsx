@@ -1,22 +1,42 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useRemoveIntent } from '../../hooks/useRemoveIntent';
 import { useIntents } from '../../hooks/useIntents';
-import Table from '../table';
 import { Button } from '../button';
+import Modal from '../modal';
+import IntentForm from '../forms/intentForm';
+import Table from '../table';
+import { useAddIntent } from '../../hooks/useAddIntent';
 
 const IntentList: FC = () => {
-  const { intents } = useIntents();
+  const { intents, loading, error } = useIntents();
+  const [showModal, setShowModal] = useState(false);
+  const { removeIntent } = useRemoveIntent();
+  const { addIntent } = useAddIntent();
+  if (loading || error) return null;
+
+  const handleAddIntent = ({ name }: { name: string }) => {
+    addIntent({ name });
+    setShowModal(false);
+  };
 
   return (
     <>
-      <Button>Add Intent</Button>
+      <Button onClick={() => setShowModal(true)}>Add intent</Button>
+
+      <Modal isOpen={showModal} close={() => setShowModal(false)}>
+        <IntentForm onSubmit={handleAddIntent} />
+      </Modal>
 
       {intents &&
         intents.map((intent) => (
           <Table
             key={intent.id}
             title={intent.name}
-            headers={['Examples', 'Responses']}
-            cols={[intent.examples, intent.responses]}
+            columns={[
+              { label: 'Examples', values: intent.examples },
+              { label: 'Responses', values: intent.responses },
+            ]}
+            onDelete={() => removeIntent(intent.id)}
           />
         ))}
     </>

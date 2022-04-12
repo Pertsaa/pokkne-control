@@ -1,71 +1,47 @@
 import { FC } from 'react';
 import {
-  StyledTable,
-  TableBody,
-  TableHeader,
-  TableWrapper,
-  TH,
-  TR,
-  TD,
+  Cell,
+  Grid,
+  GridButton,
+  GridCol,
+  GridHeader,
+  GridLabel,
+  GridWrapper,
 } from './styles';
+
+interface Column {
+  label: string;
+  values: string[];
+  onAdd?: () => void;
+}
 
 interface Props {
   title: string;
-  headers: string[];
-  cols: string[][];
+  columns: Column[];
+  onDelete?: () => void;
 }
 
-const getTableRows = (cols: string[][]) => {
-  const rowCount = Math.max(...cols.map((col) => col.length));
-  const rows: number[] = [];
-  for (let i = 0; i < rowCount; i++) {
-    rows.push(i);
-  }
-
+const Table: FC<Props> = ({ title, columns, onDelete }) => {
   return (
-    <>
-      {rows.map((row) => (
-        <TR key={row}>
-          {cols.map((col, i) => {
-            const rowSpan =
-              col.length === 0 ? rowCount : Math.floor(rowCount / col.length);
-
-            if (row % rowSpan !== 0 || row > rowSpan * col.length) return null;
-
-            if (row === rowSpan * col.length) {
-              return <TD key={`${row}:${i}`} rowSpan={rowCount - row} />;
-            }
-            const id = row === 0 ? 0 : Math.floor(row / rowSpan);
-            const value = col[id];
-            return (
-              <TD key={`${row}:${i}`} rowSpan={rowSpan}>
-                {value}
-              </TD>
-            );
-          })}
-        </TR>
-      ))}
-    </>
-  );
-};
-
-const Table: FC<Props> = ({ title, headers, cols }) => {
-  return (
-    <TableWrapper>
-      <TableHeader>
+    <GridWrapper>
+      <GridHeader>
         <h3>{title}</h3>
-      </TableHeader>
-      <StyledTable>
-        <thead>
-          <TR>
-            {headers.map((header, i) => (
-              <TH key={`${i}:${header}`}>{header}</TH>
+        {onDelete && <GridButton onClick={onDelete}>Delete</GridButton>}
+      </GridHeader>
+      <Grid>
+        {columns.map(({ label, values, onAdd }) => (
+          <GridCol key={label}>
+            <GridLabel>
+              <div>{label}</div>
+              {onAdd && <GridButton onClick={onAdd}>Add</GridButton>}
+            </GridLabel>
+            {values.map((v) => (
+              <Cell key={v}>{v}</Cell>
             ))}
-          </TR>
-        </thead>
-        <TableBody>{getTableRows(cols)}</TableBody>
-      </StyledTable>
-    </TableWrapper>
+          </GridCol>
+        ))}
+      </Grid>
+    </GridWrapper>
   );
 };
 
