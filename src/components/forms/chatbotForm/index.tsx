@@ -1,32 +1,40 @@
 import { FC, FormEvent, useState } from 'react';
-import { NewIntent } from '../../../types';
+import { NewChatbot } from '../../../types';
 import { Button } from '../../button';
 import { Form, Input, Label } from '../styles';
 
 interface Props {
-  onSubmit: (intent: NewIntent) => void;
+  onSubmit: (chatbot: NewChatbot) => void;
 }
 
-const IntentForm: FC<Props> = ({ onSubmit }) => {
+const ChatbotForm: FC<Props> = ({ onSubmit }) => {
+  const [title, setTitle] = useState('');
   const [name, setName] = useState('');
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit({ name });
+    onSubmit({ title, name });
+    setTitle('');
     setName('');
   };
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Label htmlFor="title">Title</Label>
+      <Input
+        name="title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
       <Label htmlFor="name">Name</Label>
       <Input
         name="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <Button type="submit">Add Intent</Button>
+      <Button type="submit">Add Chatbot</Button>
     </Form>
   );
 };
 
-export default IntentForm;
+export default ChatbotForm;

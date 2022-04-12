@@ -12,19 +12,20 @@ const IntentList: FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { removeIntent } = useRemoveIntent();
   const { addIntent } = useAddIntent();
-  if (loading || error) return null;
 
-  const handleAddIntent = ({ name }: { name: string }) => {
+  const handleSubmit = ({ name }: { name: string }) => {
     addIntent({ name });
     setShowModal(false);
   };
+
+  if (loading || error) return null;
 
   return (
     <>
       <Button onClick={() => setShowModal(true)}>Add intent</Button>
 
       <Modal isOpen={showModal} close={() => setShowModal(false)}>
-        <IntentForm onSubmit={handleAddIntent} />
+        <IntentForm onSubmit={handleSubmit} />
       </Modal>
 
       {intents &&

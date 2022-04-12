@@ -5,7 +5,7 @@ export interface Intent {
   responses: string[];
 }
 
-export type NewIntent = Omit<Intent, 'id'>;
+export type NewIntent = Omit<Intent, 'id' | 'examples' | 'responses'>;
 
 export interface Chatbot {
   id: number;
@@ -13,3 +13,5 @@ export interface Chatbot {
   name: string;
   intents: Intent[];
 }
+
+export type NewChatbot = Omit<Chatbot, 'id' | 'intents'>;

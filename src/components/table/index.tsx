@@ -12,7 +12,7 @@ import {
 interface Column {
   label: string;
   values: string[];
-  onAdd?: () => void;
+  onEdit?: () => void;
 }
 
 interface Props {
@@ -29,11 +29,11 @@ const Table: FC<Props> = ({ title, columns, onDelete }) => {
         {onDelete && <GridButton onClick={onDelete}>Delete</GridButton>}
       </GridHeader>
       <Grid>
-        {columns.map(({ label, values, onAdd }) => (
+        {columns.map(({ label, values, onEdit }) => (
           <GridCol key={label}>
             <GridLabel>
               <div>{label}</div>
-              {onAdd && <GridButton onClick={onAdd}>Add</GridButton>}
+              {onEdit && <GridButton onClick={onEdit}>Edit</GridButton>}
             </GridLabel>
             {values.map((v) => (
               <Cell key={v}>{v}</Cell>
