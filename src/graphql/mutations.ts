@@ -36,3 +36,31 @@ export const REMOVE_CHATBOT = gql`
     removeChatbot(id: $id)
   }
 `;
+
+export const ASSIGN_INTENT = gql`
+  ${CHATBOT_FIELDS}
+  ${INTENT_FIELDS}
+
+  mutation AddIntentToChatbot($chatbotId: ID!, $intentId: ID!) {
+    addIntentToChatbot(chatbotId: $chatbotId, intentId: $intentId) {
+      ...ChatbotFields
+      intents {
+        ...IntentFields
+      }
+    }
+  }
+`;
+
+export const UNASSIGN_INTENT = gql`
+  ${CHATBOT_FIELDS}
+  ${INTENT_FIELDS}
+
+  mutation RemoveIntentFromChatbot($chatbotId: ID!, $intentId: ID!) {
+    removeIntentFromChatbot(chatbotId: $chatbotId, intentId: $intentId) {
+      ...ChatbotFields
+      intents {
+        ...IntentFields
+      }
+    }
+  }
+`;

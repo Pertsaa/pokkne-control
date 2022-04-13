@@ -23,3 +23,11 @@ export const Input = styled.input`
   margin-bottom: 1em;
   color: white;
 `;
+
+export const Select = styled.select`
+  background-color: #222;
+  color: white;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  border-radius: 6px;
+`;

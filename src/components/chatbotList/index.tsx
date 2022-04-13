@@ -1,49 +1,46 @@
 import { FC, useState } from 'react';
 import { useAddChatbot } from '../../hooks/chatbots/useAddChatbot';
 import { useChatbots } from '../../hooks/chatbots/useChatbots';
-import { useRemoveChatbot } from '../../hooks/chatbots/useRemoveChatbot';
+import { useIntents } from '../../hooks/intents/useIntents';
 import { Button } from '../button';
 import ChatbotForm from '../forms/chatbotForm';
 import Modal from '../modal';
-import Table from '../table';
+import ChatbotItem from './chatbotItem';
 
 const ChatbotList: FC = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showChatbotForm, setShowChatbotForm] = useState(false);
   const { chatbots } = useChatbots();
+  const { intents } = useIntents();
   const { addChatbot } = useAddChatbot();
-  const { removeChatbot } = useRemoveChatbot();
 
-  const handleSubmit = ({ title, name }: { title: string; name: string }) => {
+  const handleAddChatbot = ({
+    title,
+    name,
+  }: {
+    title: string;
+    name: string;
+  }) => {
     addChatbot({ title, name });
-    setShowModal(false);
+    setShowChatbotForm(false);
   };
 
   if (!chatbots) return null;
 
   return (
     <>
-      <Button onClick={() => setShowModal(true)}>Add Chatbot</Button>
+      <Button onClick={() => setShowChatbotForm(true)}>Add Chatbot</Button>
 
-      <Modal isOpen={showModal} close={() => setShowModal(false)}>
-        <ChatbotForm onSubmit={handleSubmit} />
+      <Modal isOpen={showChatbotForm} close={() => setShowChatbotForm(false)}>
+        <ChatbotForm onSubmit={handleAddChatbot} />
       </Modal>
 
-      {chatbots &&
-        chatbots.map((chatbot) => (
-          <Table
-            key={chatbot.id}
-            title={chatbot.title}
-            columns={[
-              { label: 'Name', values: [chatbot.name], onEdit: () => {} },
-              {
-                label: 'Intents',
-                values: chatbot.intents.map((intent) => intent.name),
-                onEdit: () => {},
-              },
-            ]}
-            onDelete={() => removeChatbot({ id: chatbot.id })}
-          />
-        ))}
+      {chatbots.map((chatbot) => (
+        <ChatbotItem
+          key={chatbot.id}
+          chatbot={chatbot}
+          intents={intents || []}
+        />
+      ))}
     </>
   );
 };

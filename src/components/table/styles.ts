@@ -13,6 +13,7 @@ export const Grid = styled.div`
 `;
 
 export const GridHeader = styled.div`
+  position: relative;
   padding: 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
@@ -33,6 +34,7 @@ export const GridCol = styled.div`
 `;
 
 export const GridLabel = styled.div`
+  position: relative;
   padding: 1em;
   font-weight: bold;
   display: flex;
@@ -43,11 +45,12 @@ export const GridLabel = styled.div`
 `;
 
 export const Cell = styled.div`
+  position: relative;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5em;
+  padding: 1em;
 
   &:not(:last-child) {
     border-bottom: 1px solid #555;
@@ -60,4 +63,6 @@ export const GridButton = styled.a`
     text-decoration: underline;
     cursor: pointer;
   }
+  position: absolute;
+  right: 1em;
 `;

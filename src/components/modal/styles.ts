@@ -13,8 +13,7 @@ export const StyledModal = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.8);
-`;
-
-export const ModalContent = styled.div`
   z-index: 10;
 `;
+
+export const ModalContent = styled.div``;
