@@ -64,3 +64,23 @@ export const UNASSIGN_INTENT = gql`
     }
   }
 `;
+
+export const SET_EXAMPLES = gql`
+  ${INTENT_FIELDS}
+
+  mutation SetExamples($id: ID!, $examples: [String!]!) {
+    setExamples(id: $id, examples: $examples) {
+      ...IntentFields
+    }
+  }
+`;
+
+export const SET_RESPONSES = gql`
+  ${INTENT_FIELDS}
+
+  mutation SetResponses($id: ID!, $responses: [String!]!) {
+    setResponses(id: $id, responses: $responses) {
+      ...IntentFields
+    }
+  }
+`;
