@@ -3,8 +3,8 @@ import { useIntents } from '../../hooks/intents/useIntents';
 import { useAddIntent } from '../../hooks/intents/useAddIntent';
 import { Button } from '../button';
 import Modal from '../modal';
-import IntentForm from '../forms/intentForm';
 import IntentItem from './intentItem';
+import AddIntentForm from '../forms/addIntentForm';
 
 const IntentList: FC = () => {
   const [showIntentForm, setShowIntentForm] = useState(false);
@@ -23,7 +23,10 @@ const IntentList: FC = () => {
       <Button onClick={() => setShowIntentForm(true)}>Add intent</Button>
 
       <Modal isOpen={showIntentForm} close={() => setShowIntentForm(false)}>
-        <IntentForm onSubmit={handleSubmit} />
+        <AddIntentForm
+          onSubmit={handleSubmit}
+          onCancel={() => setShowIntentForm(false)}
+        />
       </Modal>
 
       {intents.map((intent) => (

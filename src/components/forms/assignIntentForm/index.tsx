@@ -1,39 +1,61 @@
-import { FC, FormEvent, useState } from 'react';
-import { Intent } from '../../../types';
+import { FC } from 'react';
+import { Field, Formik } from 'formik';
 import { Button } from '../../button';
-import { Form, Label, Select } from '../styles';
+import { StyledForm, FormButtons } from '../styles';
+import SelectField from '../inputs/selectField';
 
-interface Props {
-  intents: Intent[];
-  onSubmit: ({ intentId }: { intentId: number }) => void;
+interface FormValues {
+  name: string;
 }
 
-const AssignIntentForm: FC<Props> = ({ intents, onSubmit }) => {
-  const [selectedIntent, setSelectedIntent] = useState(intents[0]?.name || '');
+interface Props {
+  options: string[];
+  onSubmit: (values: FormValues) => void;
+  onCancel: () => void;
+}
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const intent = intents.find((i) => i.name === selectedIntent);
-    if (intent) onSubmit({ intentId: intent.id });
+const AssignIntentForm: FC<Props> = ({ options, onSubmit, onCancel }) => {
+  const initialValues: FormValues = {
+    name: options[0] || '',
+  };
+
+  const validate = (values: FormValues) => {
+    const errors: { [field: string]: string } = {};
+    if (!values.name) {
+      errors.name = 'required';
+    }
+    return errors;
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor="intent">Intent</Label>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validate={validate}
+      validateOnMount
+    >
+      {({ isValid, dirty }) => {
+        return (
+          <StyledForm>
+            <Field
+              label="Intent"
+              name="name"
+              options={options}
+              component={SelectField}
+            />
 
-      <Select
-        value={selectedIntent}
-        onChange={(e) => setSelectedIntent(e.target.value)}
-      >
-        {intents.map((intent) => (
-          <option key={intent.id} value={intent.name}>
-            {intent.name}
-          </option>
-        ))}
-      </Select>
-
-      <Button type="submit">Assign intent</Button>
-    </Form>
+            <FormButtons>
+              <Button type="button" onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!isValid}>
+                Assign Intent
+              </Button>
+            </FormButtons>
+          </StyledForm>
+        );
+      }}
+    </Formik>
   );
 };
 

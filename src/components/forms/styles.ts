@@ -1,12 +1,17 @@
 import styled from 'styled-components';
+import { Form } from 'formik';
 
-export const Form = styled.form`
+export const StyledForm = styled(Form)`
+  background-color: #333;
+  padding: 2em;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
-  background-color: #333;
-  border-radius: 6px;
-  padding: 2em;
-  width: 300px;
+`;
+
+export const StyledField = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Label = styled.label`
@@ -14,20 +19,32 @@ export const Label = styled.label`
   margin-bottom: 0.5em;
 `;
 
-export const Input = styled.input`
+export const TextInput = styled.input`
+  margin-bottom: 1em;
+  background-color: #222;
   border: none;
   outline: none;
   padding: 0.5em 1em;
   border-radius: 6px;
-  background-color: #222;
-  margin-bottom: 1em;
   color: white;
 `;
 
 export const Select = styled.select`
   background-color: #222;
-  color: white;
+  border-radius: 6px;
   padding: 0.5em 1em;
   margin-bottom: 1em;
-  border-radius: 6px;
+  color: white;
+  outline: none;
+`;
+
+export const StyledError = styled.span`
+  color: red;
+  margin-left: 1em;
+`;
+
+export const FormButtons = styled.div`
+  & > button:not(:first-child) {
+    margin-left: 1em;
+  }
 `;

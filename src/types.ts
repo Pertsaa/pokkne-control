@@ -1,3 +1,6 @@
+import { ButtonHTMLAttributes } from 'react';
+import { To } from 'react-router-dom';
+
 export interface Intent {
   id: number;
   name: string;
@@ -16,12 +19,15 @@ export interface Chatbot {
 
 export type NewChatbot = Omit<Chatbot, 'id' | 'intents'>;
 
-// Query Types
-
 export interface ChatbotsQueryResult {
   chatbots: Chatbot[];
 }
 
 export interface IntentsQueryResult {
   intents: Intent[];
+}
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  href?: string;
+  to?: To;
 }

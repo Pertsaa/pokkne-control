@@ -1,30 +1,59 @@
-import { FC, FormEvent, useState } from 'react';
+import { FC } from 'react';
+import { Formik, Field } from 'formik';
 import { Button } from '../../button';
-import { Form, Label, Input } from '../styles';
+import { FormButtons, StyledForm } from '../styles';
+import TextField from '../inputs/textField';
 
 interface Props {
-  onSubmit: ({ example }: { example: string }) => void;
+  onSubmit: (values: FormValues) => void;
+  onCancel: () => void;
 }
 
-const AddExampleForm: FC<Props> = ({ onSubmit }) => {
-  const [example, setExample] = useState('');
+interface FormValues {
+  example: string;
+}
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmit({ example });
-    setExample('');
+const AddExampleForm: FC<Props> = ({ onSubmit, onCancel }) => {
+  const initialValues: FormValues = {
+    example: '',
+  };
+
+  const validate = (values: FormValues) => {
+    const errors: { [field: string]: string } = {};
+    if (!values.example) {
+      errors.example = 'required';
+    }
+    return errors;
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor="name">example</Label>
-      <Input
-        name="example"
-        value={example}
-        onChange={(e) => setExample(e.target.value)}
-      />
-      <Button type="submit">Add example</Button>
-    </Form>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validate={validate}
+    >
+      {({ isValid, dirty }) => {
+        return (
+          <StyledForm>
+            <Field
+              label="Example"
+              placeholder="Example"
+              name="example"
+              component={TextField}
+            />
+
+            <FormButtons>
+              <Button type="button" onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!dirty || !isValid}>
+                Add Example
+              </Button>
+            </FormButtons>
+          </StyledForm>
+        );
+      }}
+    </Formik>
   );
 };
 

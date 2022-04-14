@@ -1,27 +1,34 @@
 import { FC } from 'react';
 import { Formik, Field } from 'formik';
 import { Button } from '../../button';
+import { NewChatbot } from '../../../types';
 import { FormButtons, StyledForm } from '../styles';
+import { useChatbots } from '../../../hooks/chatbots/useChatbots';
 import TextField from '../inputs/textField';
 
 interface Props {
-  onSubmit: (values: FormValues) => void;
+  onSubmit: (values: NewChatbot) => void;
   onCancel: () => void;
 }
 
-interface FormValues {
-  response: string;
-}
+const AddChatbotForm: FC<Props> = ({ onSubmit, onCancel }) => {
+  const { chatbots } = useChatbots();
 
-const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
-  const initialValues: FormValues = {
-    response: '',
+  const initialValues: NewChatbot = {
+    title: '',
+    name: '',
   };
 
-  const validate = (values: FormValues) => {
+  const validate = (values: NewChatbot) => {
     const errors: { [field: string]: string } = {};
-    if (!values.response) {
-      errors.response = 'required';
+    if (!values.title) {
+      errors.title = 'required';
+    }
+    if (chatbots && chatbots.some((c) => c.title === values.title)) {
+      errors.title = 'must be unique';
+    }
+    if (!values.name) {
+      errors.name = 'required';
     }
     return errors;
   };
@@ -36,9 +43,15 @@ const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
         return (
           <StyledForm>
             <Field
-              label="Response"
-              placeholder="Response"
-              name="response"
+              label="Title"
+              placeholder="Title"
+              name="title"
+              component={TextField}
+            />
+            <Field
+              label="Name"
+              placeholder="Name"
+              name="name"
               component={TextField}
             />
 
@@ -47,7 +60,7 @@ const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
                 Cancel
               </Button>
               <Button type="submit" disabled={!dirty || !isValid}>
-                Add Response
+                Add Chatbot
               </Button>
             </FormButtons>
           </StyledForm>
@@ -57,4 +70,4 @@ const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
   );
 };
 
-export default AddResponseForm;
+export default AddChatbotForm;

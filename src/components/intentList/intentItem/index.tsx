@@ -52,11 +52,17 @@ const IntentItem: FC<Props> = ({ intent }) => {
   return (
     <>
       <Modal isOpen={showExampleForm} close={() => setShowExampleForm(false)}>
-        <AddExampleForm onSubmit={handleAddExample} />
+        <AddExampleForm
+          onSubmit={handleAddExample}
+          onCancel={() => setShowExampleForm(false)}
+        />
       </Modal>
 
       <Modal isOpen={showResponseForm} close={() => setShowResponseForm(false)}>
-        <AddResponseForm onSubmit={handleAddResponse} />
+        <AddResponseForm
+          onSubmit={handleAddResponse}
+          onCancel={() => setShowResponseForm(false)}
+        />
       </Modal>
 
       <Table
@@ -76,7 +82,11 @@ const IntentItem: FC<Props> = ({ intent }) => {
             onCellDelete: (response) => removeResponse({ response }),
           },
         ]}
-        onDelete={() => removeIntent({ id: intent.id })}
+        onDelete={() => {
+          if (window.confirm(`Remove intent with name ${intent.name}?`)) {
+            removeIntent({ id: intent.id });
+          }
+        }}
       />
     </>
   );

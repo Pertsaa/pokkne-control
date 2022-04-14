@@ -2,40 +2,50 @@ import { FC, useState } from 'react';
 import { useAssignIntent } from '../../../hooks/chatbots/useAssignIntent';
 import { useRemoveChatbot } from '../../../hooks/chatbots/useRemoveChatbot';
 import { useUnassignIntent } from '../../../hooks/chatbots/useUnassignIntent';
-import { Chatbot, Intent } from '../../../types';
+import { useIntents } from '../../../hooks/intents/useIntents';
+import { Chatbot } from '../../../types';
 import AssignIntentForm from '../../forms/assignIntentForm';
 import Modal from '../../modal';
 import Table from '../../table';
 
 interface Props {
   chatbot: Chatbot;
-  intents: Intent[];
 }
 
-const ChatbotItem: FC<Props> = ({ chatbot, intents }) => {
+const ChatbotItem: FC<Props> = ({ chatbot }) => {
   const [showAssignForm, setShowAssignForm] = useState(false);
+  const { intents } = useIntents();
   const { removeChatbot } = useRemoveChatbot();
   const { assignIntent } = useAssignIntent();
   const { unassignIntent } = useUnassignIntent();
 
-  const handleAssignIntent = ({ intentId }: { intentId: number }) => {
-    assignIntent({ chatbotId: chatbot.id, intentId });
+  const handleAssignIntent = ({ name }: { name: string }) => {
+    if (!intents) return;
+    const intent = intents.find((i) => i.name === name);
+    if (intent) assignIntent({ chatbotId: chatbot.id, intentId: intent.id });
     setShowAssignForm(false);
   };
 
   const handleUnassignIntent = (name: string) => {
+    if (!intents) return;
     const intent = intents.find((i) => i.name === name);
     if (intent) unassignIntent({ chatbotId: chatbot.id, intentId: intent.id });
   };
 
-  const newIntents = intents.filter(
-    (i) => !chatbot.intents.some((it) => it.id === i.id)
-  );
+  const intentOptions = intents
+    ? intents
+        .filter((i) => !chatbot.intents.some((it) => it.id === i.id))
+        .map((i) => i.name)
+    : [];
 
   return (
     <>
       <Modal isOpen={showAssignForm} close={() => setShowAssignForm(false)}>
-        <AssignIntentForm intents={newIntents} onSubmit={handleAssignIntent} />
+        <AssignIntentForm
+          options={intentOptions}
+          onSubmit={handleAssignIntent}
+          onCancel={() => setShowAssignForm(false)}
+        />
       </Modal>
 
       <Table
@@ -54,7 +64,11 @@ const ChatbotItem: FC<Props> = ({ chatbot, intents }) => {
             },
           },
         ]}
-        onDelete={() => removeChatbot({ id: chatbot.id })}
+        onDelete={() => {
+          if (window.confirm(`Remove chatbot with title ${chatbot.title}?`)) {
+            removeChatbot({ id: chatbot.id });
+          }
+        }}
       />
     </>
   );

@@ -1,27 +1,30 @@
 import { FC } from 'react';
 import { Formik, Field } from 'formik';
 import { Button } from '../../button';
+import { NewIntent } from '../../../types';
 import { FormButtons, StyledForm } from '../styles';
+import { useIntents } from '../../../hooks/intents/useIntents';
 import TextField from '../inputs/textField';
 
 interface Props {
-  onSubmit: (values: FormValues) => void;
+  onSubmit: (values: NewIntent) => void;
   onCancel: () => void;
 }
 
-interface FormValues {
-  response: string;
-}
+const AddIntentForm: FC<Props> = ({ onSubmit, onCancel }) => {
+  const { intents } = useIntents();
 
-const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
-  const initialValues: FormValues = {
-    response: '',
+  const initialValues: NewIntent = {
+    name: '',
   };
 
-  const validate = (values: FormValues) => {
+  const validate = (values: NewIntent) => {
     const errors: { [field: string]: string } = {};
-    if (!values.response) {
-      errors.response = 'required';
+    if (!values.name) {
+      errors.name = 'required';
+    }
+    if (intents && intents.some((i) => i.name === values.name)) {
+      errors.name = 'must be unique';
     }
     return errors;
   };
@@ -36,9 +39,9 @@ const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
         return (
           <StyledForm>
             <Field
-              label="Response"
-              placeholder="Response"
-              name="response"
+              label="Name"
+              placeholder="Name"
+              name="name"
               component={TextField}
             />
 
@@ -47,7 +50,7 @@ const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
                 Cancel
               </Button>
               <Button type="submit" disabled={!dirty || !isValid}>
-                Add Response
+                Add Intent
               </Button>
             </FormButtons>
           </StyledForm>
@@ -57,4 +60,4 @@ const AddResponseForm: FC<Props> = ({ onSubmit, onCancel }) => {
   );
 };
 
-export default AddResponseForm;
+export default AddIntentForm;
