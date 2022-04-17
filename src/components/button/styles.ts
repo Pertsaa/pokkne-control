@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { ButtonProps } from '../../types';
 
-export const StyledButton = styled.button<ButtonProps>`
+export const StyledButton = styled.button`
   display: inline-block;
   background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 6px;

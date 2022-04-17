@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { ModalContent, StyledModal } from './styles';
+
+import { StyledModal } from './styles';
 
 interface Props {
   isOpen: boolean;
@@ -11,9 +12,7 @@ const Modal: FC<Props> = ({ children, isOpen, close }) => {
 
   return (
     <StyledModal onClick={close}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
-        {children}
-      </ModalContent>
+      <div onClick={(e) => e.stopPropagation()}>{children}</div>
     </StyledModal>
   );
 };

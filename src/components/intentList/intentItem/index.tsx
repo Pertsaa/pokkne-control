@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
+
 import { useRemoveIntent } from '../../../hooks/intents/useRemoveIntent';
 import { useSetExamples } from '../../../hooks/intents/useSetExamples';
 import { useSetResponses } from '../../../hooks/intents/useSetResponses';
 import { Intent } from '../../../types';
+import FlexTable from '../../flexTable';
 import AddExampleForm from '../../forms/addExampleForm';
 import AddResponseForm from '../../forms/addResponseForm';
 import Modal from '../../modal';
-import Table from '../../table';
 
 interface Props {
   intent: Intent;
@@ -65,7 +66,7 @@ const IntentItem: FC<Props> = ({ intent }) => {
         />
       </Modal>
 
-      <Table
+      <FlexTable
         key={intent.id}
         title={intent.name}
         columns={[

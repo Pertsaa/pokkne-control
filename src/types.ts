@@ -27,7 +27,20 @@ export interface IntentsQueryResult {
   intents: Intent[];
 }
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  href?: string;
-  to?: To;
+export interface Credentials {
+  username: string;
+  password: string;
+}
+
+export interface AuthQueryResult {
+  accessToken: string;
+}
+
+export interface User {
+  id: number;
+  username: string;
+}
+
+export interface MeQueryResult {
+  me?: User;
 }

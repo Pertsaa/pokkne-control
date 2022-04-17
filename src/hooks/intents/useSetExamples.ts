@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+
 import { SET_EXAMPLES } from '../../graphql/mutations';
 import { Intent } from '../../types';
 

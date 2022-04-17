@@ -16,3 +16,10 @@ export const INTENT_FIELDS = gql`
     responses
   }
 `;
+
+export const USER_FIELDS = gql`
+  fragment UserFields on User {
+    id
+    username
+  }
+`;

@@ -84,3 +84,11 @@ export const SET_RESPONSES = gql`
     }
   }
 `;
+
+export const SIGN_IN = gql`
+  mutation Login($input: UserInput!) {
+    login(input: $input) {
+      accessToken
+    }
+  }
+`;

@@ -15,5 +15,3 @@ export const StyledModal = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 10;
 `;
-
-export const ModalContent = styled.div``;

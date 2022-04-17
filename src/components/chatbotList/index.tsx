@@ -1,7 +1,8 @@
 import { FC, useState } from 'react';
+
 import { useAddChatbot } from '../../hooks/chatbots/useAddChatbot';
 import { useChatbots } from '../../hooks/chatbots/useChatbots';
-import { Button } from '../button';
+import Button from '../button';
 import AddChatbotForm from '../forms/addChatbotForm';
 import Modal from '../modal';
 import ChatbotItem from './chatbotItem';

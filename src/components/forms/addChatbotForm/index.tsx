@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { Formik, Field } from 'formik';
-import { Button } from '../../button';
+
 import { NewChatbot } from '../../../types';
 import { FormButtons, StyledForm } from '../styles';
 import { useChatbots } from '../../../hooks/chatbots/useChatbots';
+import Button from '../../button';
 import TextField from '../inputs/textField';
 
 interface Props {

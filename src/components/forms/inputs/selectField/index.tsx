@@ -1,5 +1,6 @@
-import { FieldProps } from 'formik';
 import { FC } from 'react';
+import { FieldProps } from 'formik';
+
 import { Label, Select, StyledField } from '../../styles';
 
 interface TextProps extends FieldProps {

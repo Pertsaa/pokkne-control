@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+
 import { REMOVE_INTENT } from '../../graphql/mutations';
 
 export const useRemoveIntent = () => {

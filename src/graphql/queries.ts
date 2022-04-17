@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { CHATBOT_FIELDS, INTENT_FIELDS } from './fragments';
+import { CHATBOT_FIELDS, INTENT_FIELDS, USER_FIELDS } from './fragments';
 
 export const GET_CHATBOTS = gql`
   ${CHATBOT_FIELDS}
@@ -21,6 +21,16 @@ export const GET_INTENTS = gql`
   query {
     intents {
       ...IntentFields
+    }
+  }
+`;
+
+export const GET_ME = gql`
+  ${USER_FIELDS}
+
+  query {
+    me {
+      ...UserFields
     }
   }
 `;

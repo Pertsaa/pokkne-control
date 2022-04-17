@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { Field, Formik } from 'formik';
-import { Button } from '../../button';
+
 import { StyledForm, FormButtons } from '../styles';
+import Button from '../../button';
 import SelectField from '../inputs/selectField';
 
 interface FormValues {

@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
+
 import { useAssignIntent } from '../../../hooks/chatbots/useAssignIntent';
 import { useRemoveChatbot } from '../../../hooks/chatbots/useRemoveChatbot';
 import { useUnassignIntent } from '../../../hooks/chatbots/useUnassignIntent';
 import { useIntents } from '../../../hooks/intents/useIntents';
 import { Chatbot } from '../../../types';
+import FlexTable from '../../flexTable';
 import AssignIntentForm from '../../forms/assignIntentForm';
 import Modal from '../../modal';
-import Table from '../../table';
 
 interface Props {
   chatbot: Chatbot;
@@ -48,7 +49,7 @@ const ChatbotItem: FC<Props> = ({ chatbot }) => {
         />
       </Modal>
 
-      <Table
+      <FlexTable
         key={chatbot.id}
         title={chatbot.title}
         columns={[

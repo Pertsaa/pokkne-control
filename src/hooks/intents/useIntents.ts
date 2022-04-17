@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+
 import { GET_INTENTS } from '../../graphql/queries';
 import { IntentsQueryResult } from '../../types';
 

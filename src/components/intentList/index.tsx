@@ -1,7 +1,8 @@
 import { FC, useState } from 'react';
+
 import { useIntents } from '../../hooks/intents/useIntents';
 import { useAddIntent } from '../../hooks/intents/useAddIntent';
-import { Button } from '../button';
+import Button from '../button';
 import Modal from '../modal';
 import IntentItem from './intentItem';
 import AddIntentForm from '../forms/addIntentForm';

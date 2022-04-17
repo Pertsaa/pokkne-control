@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { ErrorMessage, FieldProps } from 'formik';
 import { Label, StyledError, StyledField, TextInput } from '../../styles';
 
@@ -14,7 +15,8 @@ export const TextField: FC<TextProps> = ({
 }: TextProps) => (
   <StyledField>
     <Label htmlFor={field.name}>
-      {label} <ErrorMessage component={StyledError} name={field.name} />
+      {label}
+      <ErrorMessage component={StyledError} name={field.name} />
     </Label>
     <TextInput placeholder={placeholder} {...field} />
   </StyledField>

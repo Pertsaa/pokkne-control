@@ -1,8 +1,12 @@
 import { FC } from 'react';
-import { Button } from '../button';
+
+import { useSignOut } from '../../hooks/users/useSignOut';
 import { NavList, NavItem, StyledHeader } from './styles';
+import Button from '../button';
 
 const Header: FC = () => {
+  const { signOut } = useSignOut();
+
   return (
     <StyledHeader>
       <nav>
@@ -15,7 +19,7 @@ const Header: FC = () => {
           </NavItem>
         </NavList>
       </nav>
-      <Button>Sign out</Button>
+      <Button onClick={signOut}>Sign out</Button>
     </StyledHeader>
   );
 };
