@@ -1,11 +1,19 @@
-import { FC } from 'react';
+import { Dispatch, FC, useEffect } from 'react';
 
 import { LoginContainer } from '../../components/layout/styles';
 import { useSignIn } from '../../hooks/users/useSignIn';
 import LoginForm from '../../components/forms/loginForm';
 
-const Login: FC = () => {
-  const { signIn } = useSignIn();
+interface Props {
+  showNotification: Dispatch<React.SetStateAction<string>>;
+}
+
+const Login: FC<Props> = ({ showNotification }) => {
+  const { signIn, error } = useSignIn();
+
+  useEffect(() => {
+    if (error) showNotification(error.message);
+  }, [error]);
 
   return (
     <main>

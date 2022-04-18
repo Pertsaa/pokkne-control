@@ -12,13 +12,17 @@ export const useSignIn = () => {
   >(SIGN_IN);
 
   const signIn = async (credentials: Credentials) => {
-    const { data } = await mutate({ variables: { input: credentials } });
-    if (data?.login.accessToken) {
-      localStorage.setItem('pokkneapi-token', data.login.accessToken);
+    try {
+      const { data } = await mutate({ variables: { input: credentials } });
+      if (data?.login.accessToken) {
+        localStorage.setItem('pokkneapi-token', data.login.accessToken);
+      }
+      await client.refetchQueries({
+        include: [GET_ME],
+      });
+    } catch (error) {
+      console.error(error);
     }
-    await client.refetchQueries({
-      include: [GET_ME],
-    });
   };
 
   return { signIn, data, loading, error };

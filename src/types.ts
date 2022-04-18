@@ -44,3 +44,7 @@ export interface User {
 export interface MeQueryResult {
   me?: User;
 }
+
+export interface Notification {
+  message: string;
+}
